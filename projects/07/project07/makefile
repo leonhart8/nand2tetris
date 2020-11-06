@@ -1,7 +1,7 @@
 .PHONY = clean all test
 
 all:
-	javac *.java
+	javac -Xlint *.java
 
 clean:
 	rm *.class VMTranslator
