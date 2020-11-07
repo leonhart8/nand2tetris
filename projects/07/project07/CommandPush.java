@@ -3,14 +3,15 @@ import java.util.LinkedList;
 /**
  * Class used to define the interface of push commands
  */
-public abstract class CommandPush {
+public abstract class CommandPush extends CommandPushPop {
 
-    // The name of the segment 
-    private String segment;
-    // The name of the reference to the segment
-    private String segmentRef;
-    // The index from which to push
-    private String index;
+    /**
+     * All push commands will have at some point or another define
+     * a segment and an index
+     */
+    public CommandPush(String segment, String index){
+        super(segment, index);
+    }
 
     /**
      * Translates a push command into assembly code
@@ -55,6 +56,14 @@ public abstract class CommandPush {
      * Writes the assembly code necessary to add an element stored in the D
      * register to the top of the stack and increments it
      */
-    public abstract LinkedList<String> pushElement();
+    public LinkedList<String> pushElement(){
+        LinkedList<String> assembly = new LinkedList<String>();
+        assembly.add("@SP");
+        assembly.add("A=M");
+        assembly.add("M=D");
+        assembly.add("@SP");
+        assembly.add("M=M+1");
+        return assembly;
+    }
 
 }
