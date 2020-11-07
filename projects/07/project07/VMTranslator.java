@@ -5,8 +5,19 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.lang.Integer;
+import java.util.LinkedList;
 
 public class VMTranslator {
+
+    private static final int succeedSkips = 14;
+    private static final int notSucceedSkips = 17;
+
+    /**
+     * Method which returns a filename without its extension
+     */
+    private static String filenameWithoutExtension(String outFilename){
+        return outFilename.split("\\.")[0];
+    }
 
     /**
      * Method which translates a single vm file into asm
@@ -16,15 +27,14 @@ public class VMTranslator {
     private static void translate(String pathname){
         Parser parser = new Parser(pathname);
         CodeWriter writer = new CodeWriter(pathname);
+        String filenameWithoutExtension = VMTranslator.filenameWithoutExtension(writer.getCurrentFilename());
+        int jumpIfSucceeds = writer.getCurrentLine() + succeedSkips;
+        int jumpIfNotSucceed = writer.getCurrentLine() + notSucceedSkips;
         while (parser.hasMoreCommands()){
             if (!parser.isComment()){
-                CommandTypes commandType = parser.commandType();
-                if (commandType == CommandTypes.C_ARITHMETIC){
-                    writer.writeArithmetic(parser.arg1());
-                }
-                else if (commandType == CommandTypes.C_PUSH || commandType == CommandTypes.C_POP){
-                    writer.writePushPop(commandType, parser.arg1(), parser.arg2());
-                }
+                Command command = CommandFactory.buildCommand(parser.getTokenized(), filenameWithoutExtension, jumpIfSucceeds, jumpIfNotSucceed);
+                LinkedList<String> assembly = command.translate();
+                writer.writeCommand(assembly);
             }
             parser.advance();
         }

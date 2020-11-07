@@ -10,7 +10,7 @@ public class CommandFactory {
      * @param filenameWithoutExtension the name of the file being written into without its extension
      * @return Command, the command associated to the input
      */
-    public Command buildCommand(String[] tokens, String filenameWithoutExtension, int jumpIfSucceeds, int jumpIfNotSucceed) throws IllegalArgumentException {
+    public static Command buildCommand(String[] tokens, String filenameWithoutExtension, int jumpIfSucceeds, int jumpIfNotSucceed) throws IllegalArgumentException {
         if (tokens.length == 3){
             switch (tokens[0]) {
                 case "push":
