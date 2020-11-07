@@ -18,6 +18,7 @@ public abstract class CommandPopDirectRef extends CommandPop {
      */
     public LinkedList<String> translate(){
         LinkedList<String> assembly = new LinkedList<String>();
+        assembly.add(this.writeComment());
         assembly.add("@SP");
         assembly.add("AM=M-1");
         assembly.add("D=M");

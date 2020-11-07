@@ -10,7 +10,7 @@ public class CommandFactory {
      * @param filenameWithoutExtension the name of the file being written into without its extension
      * @return Command, the command associated to the input
      */
-    public Command buildCommand(String[] tokens, String filenameWithoutExtension) throws IllegalArgumentException {
+    public Command buildCommand(String[] tokens, String filenameWithoutExtension, int jumpIfSucceeds, int jumpIfNotSucceed) throws IllegalArgumentException {
         if (tokens.length == 3){
             switch (tokens[0]) {
                 case "push":
@@ -51,6 +51,28 @@ public class CommandFactory {
                     }
                 default:
                     throw new IllegalArgumentException("Command type " + tokens[0] + " not handled by translator");
+            }
+        }
+        else if (tokens.length == 1){
+            switch (tokens[0]) {
+                case "add":
+                    return new CommandAdd();
+                case "sub":
+                    return new CommandSub();
+                case "neg":
+                    return new CommandNeg();
+                case "eq":
+                    return new CommandEq(jumpIfSucceeds, jumpIfNotSucceed);
+                case "gt":
+                    return new CommandGt(jumpIfSucceeds, jumpIfNotSucceed);
+                case "lt":
+                    return new CommandLt(jumpIfSucceeds, jumpIfNotSucceed);
+                case "and":
+                    return new CommandAnd();
+                case "or":
+                    return new CommandOr();
+                default:
+                    throw new IllegalArgumentException("Command type " + tokens[0] + " not handled");
             }
         }
         else {

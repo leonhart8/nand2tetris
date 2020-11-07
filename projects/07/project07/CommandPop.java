@@ -25,10 +25,4 @@ public abstract class CommandPop extends CommandPushPop {
         return "// pop " + this.segment + " " + this.index;
     }
 
-    /**
-     * The translate will depend on if we only need to pop into
-     * an adress for which we have a direct or an indirect reference
-     */
-    public abstract LinkedList<String> translate();
-
 }
