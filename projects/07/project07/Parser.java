@@ -92,27 +92,4 @@ public class Parser {
     public boolean isComment(){
         return this.getCommand().length() == 0 || this.getTokenized()[0].equals("//");
     }
-
-    /**
-     * Returns the first argument of the current command
-     * @return String, the first argument of the command
-     */
-    public String arg1(){
-        CommandTypes commandType = this.commandType();
-        if (commandType == CommandTypes.C_ARITHMETIC){
-            return this.getTokenized()[0];
-        }
-        else {
-            return this.getTokenized()[1];
-        }
-    }
-
-    /**
-     * Returns the second argument of the current command
-     * @return int, the second argument of the current command
-     */
-    public int arg2(){
-        return Integer.parseInt(this.getTokenized()[2]);
-    }
-
 }
