@@ -85,34 +85,6 @@ public class Parser {
     }
 
     /**
-     * Returns the type of the current command
-     * return CommandTypes object, the type of the current command
-     */
-    public CommandTypes commandType(){
-        String commandType = this.getTokenized()[0];
-        switch (commandType) {
-            case "push":
-                return CommandTypes.C_PUSH;
-            case "pop":
-                return CommandTypes.C_POP;
-            case "label":
-                return CommandTypes.C_LABEL;
-            case "goto":
-                return CommandTypes.C_GOTO;
-            case "if":
-                return CommandTypes.C_IF;
-            case "function":
-                return CommandTypes.C_FUNCTION;
-            case "return":
-                return CommandTypes.C_RETURN;
-            case "call":
-                return CommandTypes.C_CALL;
-            default:
-                return CommandTypes.C_ARITHMETIC;
-        }
-    }
-
-    /**
      * Checks if the current line is actually a comment or an empty line
      * @return boolean, true if the current line is a comment or an empty line
      *                 false otherwise
